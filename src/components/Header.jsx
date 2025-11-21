@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, LogIn, UserPlus, Search, Building2, UserCheck, Plus, User, LogOut, Bell } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import SignupModal from './SignupModal';
 import NotificationCenter from './NotificationCenter';
 import { getUnreadNotificationCount } from '../utils/notificationUtils';
@@ -76,10 +76,10 @@ const Header = () => {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('adminAuth'); // 관리자 인증 정보도 제거
     setCurrentUser(null);
-    
+
     // 커스텀 이벤트 발생시켜 다른 컴포넌트에 알림
     window.dispatchEvent(new CustomEvent('userLogout'));
-    
+
     navigate('/');
   };
 
@@ -119,7 +119,7 @@ const Header = () => {
         <div className="flex justify-between items-center h-16">
           {/* 로고 */}
           <div className="flex-shrink-0">
-            <button 
+            <button
               onClick={() => navigate('/')}
               className="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200"
             >
@@ -137,14 +137,14 @@ const Header = () => {
             {navItems.map((item) => {
               const Icon = item.icon;
               return (
-                <a
+                <Link
                   key={item.href}
-                  href={item.href}
+                  to={item.href}
                   className="group flex items-center px-4 py-2.5 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-200"
                 >
                   <Icon className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform duration-200" />
                   {item.label}
-                </a>
+                </Link>
               );
             })}
           </nav>
@@ -153,7 +153,7 @@ const Header = () => {
           <div className="hidden md:flex items-center space-x-3">
             {currentUser ? (
               <>
-                <button 
+                <button
                   onClick={() => setIsNotificationCenterOpen(true)}
                   className="relative group flex items-center px-4 py-2.5 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-xl transition-all duration-200"
                 >
@@ -165,14 +165,14 @@ const Header = () => {
                     </span>
                   )}
                 </button>
-                <button 
+                <button
                   onClick={handleMyPageClick}
                   className="group flex items-center px-4 py-2.5 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-xl transition-all duration-200"
                 >
                   <User className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform duration-200" />
                   마이페이지
                 </button>
-                <button 
+                <button
                   onClick={handleLogout}
                   className="group flex items-center px-4 py-2.5 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all duration-200"
                 >
@@ -182,14 +182,14 @@ const Header = () => {
               </>
             ) : (
               <>
-                <button 
+                <button
                   onClick={handleLoginClick}
                   className="group flex items-center px-4 py-2.5 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-xl transition-all duration-200"
                 >
                   <LogIn className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform duration-200" />
                   로그인
                 </button>
-                <button 
+                <button
                   onClick={handleSignupClick}
                   className="group bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2.5 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-200 flex items-center shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                 >
@@ -218,21 +218,21 @@ const Header = () => {
               {navItems.map((item) => {
                 const Icon = item.icon;
                 return (
-                  <a
+                  <Link
                     key={item.href}
-                    href={item.href}
+                    to={item.href}
                     className="group flex items-center px-3 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-200"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     <Icon className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform duration-200" />
                     {item.label}
-                  </a>
+                  </Link>
                 );
               })}
               <div className="border-t border-gray-200 pt-4 mt-4">
                 {currentUser ? (
                   <>
-                    <button 
+                    <button
                       onClick={() => {
                         setIsNotificationCenterOpen(true);
                         setIsMenuOpen(false);
@@ -247,7 +247,7 @@ const Header = () => {
                         </span>
                       )}
                     </button>
-                    <button 
+                    <button
                       onClick={() => {
                         handleMyPageClick();
                         setIsMenuOpen(false);
@@ -257,7 +257,7 @@ const Header = () => {
                       <User className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform duration-200" />
                       마이페이지
                     </button>
-                    <button 
+                    <button
                       onClick={() => {
                         handleLogout();
                         setIsMenuOpen(false);
@@ -270,7 +270,7 @@ const Header = () => {
                   </>
                 ) : (
                   <>
-                    <button 
+                    <button
                       onClick={() => {
                         handleLoginClick();
                         setIsMenuOpen(false);
@@ -280,7 +280,7 @@ const Header = () => {
                       <LogIn className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform duration-200" />
                       로그인
                     </button>
-                    <button 
+                    <button
                       onClick={() => {
                         handleSignupClick();
                         setIsMenuOpen(false);
